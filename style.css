@@ -1,0 +1,125 @@
+:root {
+  --bg: #0b0f17;
+  --surface: #151b27;
+  --surface-2: #1e2636;
+  --text: #c9d2e3;
+  --muted: #6f7b91;
+  --accent: #7fa8ff;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+main {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: calc(env(safe-area-inset-top) + 48px) 20px calc(env(safe-area-inset-bottom) + 32px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.power {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 2px solid var(--surface-2);
+  background: radial-gradient(circle at 50% 40%, var(--surface-2), var(--surface));
+  color: var(--muted);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: color .4s, border-color .4s, box-shadow .4s;
+}
+
+.power[aria-pressed="true"] {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  box-shadow: 0 0 60px color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+.blades { width: 140px; height: 140px; }
+
+.power[aria-pressed="true"] .blades {
+  animation: spin var(--spin, 1.2s) linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .power[aria-pressed="true"] .blades { animation: none; }
+}
+
+.status {
+  margin: -8px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  min-height: 1.2em;
+}
+
+.group { width: 100%; }
+
+.group h2 {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted);
+}
+
+.segmented {
+  display: flex;
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.segmented button {
+  flex: 1;
+  border: 0;
+  border-radius: 9px;
+  padding: 12px 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.segmented button[aria-checked="true"] {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+  height: 32px;
+}
+
+.hint {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+  min-height: 1em;
+}
+
+button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
